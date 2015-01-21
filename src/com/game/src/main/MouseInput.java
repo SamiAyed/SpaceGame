@@ -3,14 +3,23 @@ package com.game.src.main;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.swing.JOptionPane;
 
 public class MouseInput implements MouseListener {
 	
 	public boolean incremented=false;
-	GenerXml xmlFile=new GenerXml();
+	
+	GenerXml xmlFile = new GenerXml();
 
+	private List<Map> myList = new ArrayList<Map>();
+	
+	Map<String, String> dictionary = new HashMap<String, String>();
+		
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
@@ -156,6 +165,16 @@ public class MouseInput implements MouseListener {
 					String pseudo= JOptionPane.showInputDialog("Please input your pseudo: ");
 					xmlFile.pseudo=pseudo;
 					xmlFile.writeXML("saves.xml");}
+					
+					myList =  xmlFile.readXML("saves.xml");
+					
+					for(int i=0 ; i < myList.size() ; i++)
+					{
+					dictionary = myList.get(i);
+						System.out.println(" :D : "+ dictionary.get("pseudo").toString());
+					}
+					
+					
 					////////////////////////
 					//Quit pressed
 					System.exit(1);

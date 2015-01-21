@@ -2,6 +2,7 @@ package com.game.src.main;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,7 +33,7 @@ public class GenerXml {
 	
 	Map<String, String> dictionary = new HashMap<String, String>();
 	
-	private List<Map> players;
+	private List<Map> players = new ArrayList<Map>();
 	
 	
 	public void saveToXML(String xml) {
@@ -93,7 +94,7 @@ public class GenerXml {
 	    }
 	}
 	
-	public boolean readXML(String xml) {
+	public List readXML(String xml) {
         //players = new ArrayList<String>();
         Document dom;
         // Make an  instance of the DocumentBuilderFactory
@@ -107,6 +108,8 @@ public class GenerXml {
 
             Element doc = dom.getDocumentElement();
 
+            NodeList list = node.getChildNodes();
+            
             pseudo = getTextValue(pseudo, doc, "pseudo");
             if (pseudo != null) {
                 if (!pseudo.isEmpty())
@@ -124,7 +127,7 @@ public class GenerXml {
             }
             
             players.add(dictionary);
-            return true;
+            return players;
 
         } catch (ParserConfigurationException pce) {
             System.out.println(pce.getMessage());
@@ -136,7 +139,7 @@ public class GenerXml {
             System.err.println(ioe.getMessage());
         }
 
-        return false;
+        return null;
     }
 
 	public void writeXML(String Path)
